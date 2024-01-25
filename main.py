@@ -8,7 +8,7 @@ from datetime import datetime
 import PIL
 
 # variables
-num_pics = 2
+num_pics = 4
 
 # Setting up camera
 cam = PiCamera()
@@ -24,6 +24,8 @@ cam.close()
 # making image variables (?)
 image0 = PIL.Image.open('image0.png')
 image1 = PIL.Image.open('image1.png')
+image2 = PIL.Image.open('image2.png')
+image3 = PIL.Image.open('image3.png')
 
 # function for returning time picture was taken
 def get_time(image):
@@ -42,3 +44,4 @@ def get_time_difference(image_1, image_2):
 
 # getting time diffrence
 diff_1 = get_time_difference(image0, image1)
+diff_2 = get_time_difference(image2, image3)
