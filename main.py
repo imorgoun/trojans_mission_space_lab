@@ -3,6 +3,8 @@ from picamera import PiCamera
 from time import sleep
 from exif import Image
 from datetime import datetime
+import cv2
+import math
 
 # (?)
 import PIL
@@ -45,3 +47,29 @@ def get_time_difference(image_1, image_2):
 # getting time diffrence
 diff_1 = get_time_difference(image0, image1)
 diff_2 = get_time_difference(image2, image3)
+
+# function for converting images to cv format
+def convert_to_cv(image_1, image_2):
+    image_1_cv = cv2.imread(image_1, 0)
+    image_2_cv = cv2.imread(image_2, 0)
+    return image_1_cv, image_2_cv
+
+# function for calculating features of two images
+def calculate_features(image_1, image_2, feature_number):
+    orb = cv2.ORB_create(nfeatures = feature_number)
+    keypoints_1, descriptors_1 = orb.detectAndCompute(image_1_cv, None)
+    keypoints_2, descriptors_2 = orb.detectAndCompute(image_2_cv, None)
+    return keypoints_1, keypoints_2, descriptors_1, descriptors_2
+
+# function for calculating matches from two sets of descriptors
+def calculate_matches(descriptors_1, descriptors_2):
+    brute_force = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
+    matches = brute_force.match(descriptors_1, descriptors_2)
+    matches = sorted(matches, key=lambda x: x.distance)
+    return matches
+
+# getting matches between two images
+image0_cv, image1_cv = convert_to_cv(image0, image1)
+keypoints0, keypoints1, descriptors0, descriptors1 = calculate_features(image0_cv, image1_cv, 1000)
+matches = calculate_matches(descriptors0, descriptors1)
+print(matches)
