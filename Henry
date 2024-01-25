@@ -1,0 +1,12 @@
+from picamera import PiCamera 
+from time import sleep
+
+camera = PiCamera() 
+camera.resolution = (2592, 1944)
+camera.brightness= 50 
+
+for i in range(3):# how frequent do we need to take the pictures
+    camera.capture("image1.jpg") 
+    sleep(180)# rest for _ amount of time
+camera.capture("image1.jpg")
+camera.close()
