@@ -18,6 +18,8 @@ for i in range(num_pics-1):
     cam.capture(f"image{i+1}.png")
 cam.close()
 
+# making image avriables
+
 # function for returning time picture was taken
 def get_time(image):
     with open(image, 'rb') as image_file:
@@ -32,3 +34,6 @@ def get_time_difference(image_1, image_2):
     time_2 = get_time(image_2)
     time_difference = time_2 - time_1
     return time_difference.seconds
+
+# getting average time diffrence between pictures
+get_time_difference(image_1, image_2)
