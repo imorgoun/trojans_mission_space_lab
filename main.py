@@ -9,7 +9,7 @@ import math
 # (?)
 import PIL
 
-# variables
+# (?) constant variables
 num_pics = 4
 
 # Setting up camera
@@ -23,7 +23,7 @@ for i in range(num_pics-1):
     cam.capture(f"image{i+1}.png")
 cam.close()
 
-# making image variables (?)
+# (?) making image variables
 image0 = PIL.Image.open('image0.png')
 image1 = PIL.Image.open('image1.png')
 image2 = PIL.Image.open('image2.png')
