@@ -48,8 +48,22 @@ def display_matches(image0_cv, keypoints0, image1_cv, keypoints1, matches):
     cv.imshow('matches', resize)
     cv.waitKey(0)
     cv.destroyWindow('matches')
+    
+def find_matching_coordinates(keypoints0, keypoints1, matches):
+    coordinates0 = []
+    coordinates1 = []
+    for match in matches:
+        image0_idx = match.queryIdx
+        image1_idx = match.trainIdx
+        (x1,y1) = keypoints0[image0_idx].pt
+        (x2,y2) = keypoints1[image1_idx].pt
+        coordinates0.append((x1,y1))
+        coordinates1.append((x2,y2))
+    return coordinates0, coordinates1
 
 image0_cv, image1_cv = convert_to_cv('image0.jpg','image1.jpg')
 keypoints0, keypoints1, descriptors0, descriptors1 = calculate_features(image0_cv, image1_cv, 1000)
 matches = calculate_matches(descriptors0, descriptors1)
 display_matches(image0_cv, keypoints0, image1_cv, keypoints1, matches)
+coordinates0, coordinates1 = find_matching_coordinates(keypoints0, keypoints1, matches)
+print(coordinates0[0], coordinates1[0])
