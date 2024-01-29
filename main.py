@@ -23,7 +23,7 @@ def get_time_difference(image0, image1):
     time_difference = time_2 - time_1
     return time_difference.seconds
 
-print(get_time_difference('image0.jpg','image1.jpg'))
+diff0 = get_time_difference('image0.jpg','image1.jpg')
 
 def convert_to_cv(image0, image1):
     image0_cv = cv.imread(image0, 0)
@@ -61,9 +61,26 @@ def find_matching_coordinates(keypoints0, keypoints1, matches):
         coordinates1.append((x2,y2))
     return coordinates0, coordinates1
 
+def calculate_mean_distance(coordinates0, coordinates1):
+    all_distances = 0
+    merged_coordinates = list(zip(coordinates0, coordinates1))
+    for coordinate in merged_coordinates:
+        x_difference = coordinate[0][0] - coordinate[1][0]
+        y_difference = coordinate[0][1] - coordinate[1][1]
+        distance = math.hypot(x_difference, y_difference)
+        all_distances = all_distances + distance
+    return all_distances / len(merged_coordinates)
+
+def calculate_speed_in_kmps(feature_distance, GSD, time_difference):
+    distance = feature_distance * GSD / 100000
+    speed = distance / time_difference
+    return speed
+
 image0_cv, image1_cv = convert_to_cv('image0.jpg','image1.jpg')
 keypoints0, keypoints1, descriptors0, descriptors1 = calculate_features(image0_cv, image1_cv, 1000)
 matches = calculate_matches(descriptors0, descriptors1)
 display_matches(image0_cv, keypoints0, image1_cv, keypoints1, matches)
 coordinates0, coordinates1 = find_matching_coordinates(keypoints0, keypoints1, matches)
-print(coordinates0[0], coordinates1[0])
+average_feature_distance = calculate_mean_distance(coordinates0, coordinates1)
+speed = calculate_speed_in_kmps(average_feature_distance, 12648, diff0)
+print(speed)
