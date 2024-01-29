@@ -1,35 +1,3 @@
-from exif import Image
-from datetime import datetime
-
-from exif import Image
-from datetime import datetime
-
-
-def get_time(image):
-
-
-from exif import Image
-from datetime import datetime
-
-
-def get_time(image):
-    with open(image, 'rb') as image_file:
-        img = Image(image_file)
-
-from exif import Image
-from datetime import datetime
-
-
-def get_time(image):
-    with open(image, 'rb') as image_file:
-        img = Image(image_file)
-        for data in img.list_all():
-            print(data)
-
-from exif import Image
-from datetime import datetime
-
-
 def get_time(image):
     with open(image, 'rb') as image_file:
         img = Image(image_file)
@@ -144,16 +112,6 @@ matches = calculate_matches(descriptors_1, descriptors_2) # Match descriptors
 
 def display_matches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches):
     match_img = cv2.drawMatches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches[:100], None)
-
-
-def display_matches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches):
-    match_img = cv2.drawMatches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches[:100], None)
-    resize = cv2.resize(match_img, (1600,600), interpolation = cv2.INTER_AREA)
-    cv2.imshow('matches', resize)
-
-
-def display_matches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches):
-    match_img = cv2.drawMatches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches[:100], None)
     resize = cv2.resize(match_img, (1600,600), interpolation = cv2.INTER_AREA)
     cv2.imshow('matches', resize)
     cv2.waitKey(0)
@@ -165,24 +123,6 @@ image_1_cv, image_2_cv = convert_to_cv(image_1, image_2) # Create OpenCV image o
 keypoints_1, keypoints_2, descriptors_1, descriptors_2 = calculate_features(image_1_cv, image_2_cv, 1000) # Get keypoints and descriptors
 matches = calculate_matches(descriptors_1, descriptors_2) # Match descriptors
 display_matches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches) # Display matches
-
-
-def find_matching_coordinates(keypoints_1, keypoints_2, matches):
-
-
-def find_matching_coordinates(keypoints_1, keypoints_2, matches):
-    coordinates_1 = []
-    coordinates_2 = []
-
-
-def find_matching_coordinates(keypoints_1, keypoints_2, matches):
-    coordinates_1 = []
-    coordinates_2 = []
-    for match in matches:
-        image_1_idx = match.queryIdx
-        image_2_idx = match.trainIdx
-        (x1,y1) = keypoints_1[image_1_idx].pt
-        (x2,y2) = keypoints_2[image_2_idx].pt
 
 
 def find_matching_coordinates(keypoints_1, keypoints_2, matches):
@@ -208,40 +148,6 @@ print(coordinates_1[0], coordinates_2[0])
 
 
 def calculate_mean_distance(coordinates_1, coordinates_2):
-
-
-def calculate_mean_distance(coordinates_1, coordinates_2):
-    all_distances = 0
-    merged_coordinates = list(zip(coordinates_1, coordinates_2))
-
-
-def calculate_mean_distance(coordinates_1, coordinates_2):
-    all_distances = 0
-    merged_coordinates = list(zip(coordinates_1, coordinates_2))
-    print(coordinates_1[0])
-    print(coordinates_2[0])
-    print(merged_coordinates[0])
-
-
-def calculate_mean_distance(coordinates_1, coordinates_2):
-    all_distances = 0
-    merged_coordinates = list(zip(coordinates_1, coordinates_2))
-    for coordinate in merged_coordinates:
-        x_difference = coordinate[0][0] - coordinate[1][0]
-        y_difference = coordinate[0][1] - coordinate[1][1]
-
-
-def calculate_mean_distance(coordinates_1, coordinates_2):
-    all_distances = 0
-    merged_coordinates = list(zip(coordinates_1, coordinates_2))
-    for coordinate in merged_coordinates:
-        x_difference = coordinate[0][0] - coordinate[1][0]
-        y_difference = coordinate[0][1] - coordinate[1][1]
-        distance = math.hypot(x_difference, y_difference)
-        all_distances = all_distances + distance
-
-
-def calculate_mean_distance(coordinates_1, coordinates_2):
     all_distances = 0
     merged_coordinates = list(zip(coordinates_1, coordinates_2))
     for coordinate in merged_coordinates:
@@ -260,13 +166,6 @@ display_matches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches) # Dis
 coordinates_1, coordinates_2 = find_matching_coordinates(keypoints_1, keypoints_2, matches)
 average_feature_distance = calculate_mean_distance(coordinates_1, coordinates_2)
 print(average_feature_distance)
-
-
-def calculate_speed_in_kmps(feature_distance, GSD, time_difference):
-
-
-def calculate_speed_in_kmps(feature_distance, GSD, time_difference):
-    distance = feature_distance * GSD / 100000
 
 
 def calculate_speed_in_kmps(feature_distance, GSD, time_difference):
