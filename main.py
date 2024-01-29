@@ -57,9 +57,9 @@ def convert_to_cv(image_1, image_2):
 # function for calculating features of two images
 def calculate_features(image_1, image_2, feature_number):
     orb = cv2.ORB_create(nfeatures = feature_number)
-    keypoints1, descriptors1 = orb.detectAndCompute(image0_cv, None)
-    keypoints2, descriptors2 = orb.detectAndCompute(image1_cv, None)
-    return keypoints1, keypoints2, descriptors1, descriptors2
+    keypoints0, descriptors0 = orb.detectAndCompute(image0_cv, None)
+    keypoints1, descriptors1 = orb.detectAndCompute(image1_cv, None)
+    return keypoints0, keypoints1, descriptors0, descriptors1
 
 # function for calculating matches from two sets of descriptors
 def calculate_matches(descriptors_1, descriptors_2):
