@@ -30,7 +30,7 @@ def convert_to_cv(image0, image1):
     image1_cv = cv.imread(image1, 0)
     return image0_cv, image1_cv
 
-def calculate_features(image0, image1, feature_number):
+def calculate_features(image0_cv, image1_cv, feature_number):
     orb = cv.ORB_create(nfeatures = feature_number)
     keypoints0, descriptors0 = orb.detectAndCompute(image0_cv, None)
     keypoints1, descriptors1 = orb.detectAndCompute(image1_cv, None)
