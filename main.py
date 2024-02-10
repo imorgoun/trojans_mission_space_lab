@@ -8,6 +8,7 @@ cam = PiCamera()
 cam.resolution = (4056, 3040)
 
 cam.capture("image0.jpg")
+sleep(5)
 cam.capture("image1.jpg")
 
 def get_time(image):
