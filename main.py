@@ -85,4 +85,6 @@ display_matches(image0_cv, keypoints0, image1_cv, keypoints1, matches)
 coordinates0, coordinates1 = find_matching_coordinates(keypoints0, keypoints1, matches)
 average_feature_distance = calculate_mean_distance(coordinates0, coordinates1)
 speed = calculate_speed_in_kmps(average_feature_distance, 12648, diff0)
-print(speed)
+result_txt = open('result.txt', 'w')
+# Writing a string to file
+file1.write(speed)
