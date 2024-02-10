@@ -1,4 +1,5 @@
 from exif import Image
+from time import sleep
 from datetime import datetime
 from picamera import PiCamera
 import cv2 as cv
