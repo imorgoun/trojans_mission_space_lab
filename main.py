@@ -11,6 +11,10 @@ cam.resolution = (4056, 3040)
 cam.capture("image0.jpg")
 sleep(5)
 cam.capture("image1.jpg")
+sleep(30)
+cam.capture("image2.jpg")
+sleep(5)
+cam.capture("image3.jpg")
 
 def get_time(image):
     with open(image, 'rb') as image_file:
@@ -43,14 +47,14 @@ def calculate_matches(descriptors0, descriptors1):
     matches = brute_force.match(descriptors0, descriptors1)
     matches = sorted(matches, key=lambda x: x.distance)
     return matches
-
+"""
 def display_matches(image0_cv, keypoints0, image1_cv, keypoints1, matches):
     match_img = cv.drawMatches(image0_cv, keypoints0, image1_cv, keypoints1, matches[:100], None)
     resize = cv.resize(match_img, (1600,600), interpolation = cv.INTER_AREA)
     cv.imshow('matches', resize)
     cv.waitKey(0)
     cv.destroyWindow('matches')
-    
+"""  
 def find_matching_coordinates(keypoints0, keypoints1, matches):
     coordinates0 = []
     coordinates1 = []
@@ -81,10 +85,11 @@ def calculate_speed_in_kmps(feature_distance, GSD, time_difference):
 image0_cv, image1_cv = convert_to_cv('image0.jpg','image1.jpg')
 keypoints0, keypoints1, descriptors0, descriptors1 = calculate_features(image0_cv, image1_cv, 1000)
 matches = calculate_matches(descriptors0, descriptors1)
-display_matches(image0_cv, keypoints0, image1_cv, keypoints1, matches)
+#display_matches(image0_cv, keypoints0, image1_cv, keypoints1, matches)
 coordinates0, coordinates1 = find_matching_coordinates(keypoints0, keypoints1, matches)
 average_feature_distance = calculate_mean_distance(coordinates0, coordinates1)
 speed = calculate_speed_in_kmps(average_feature_distance, 12648, diff0)
+
 result_txt = open('result.txt', 'w')
 if(speed[1]=="."):
     result_txt.write(speed[:6])
