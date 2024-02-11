@@ -90,7 +90,7 @@ diff2 = get_time_difference('image4.jpg','image5.jpg')
 
 image0_cv, image1_cv = convert_to_cv('image0.jpg','image1.jpg')
 image2_cv,image3_cv = convert_to_cv('image2.jpg','image3.jpg')
-image4_cv,image5_cv = convert_to_cv('image2.jpg','image3.jpg')
+image4_cv,image5_cv = convert_to_cv('image4.jpg','image5.jpg')
 
 keypoints0, keypoints1, descriptors0, descriptors1 = calculate_features(image0_cv, image1_cv, 1000)
 keypoints2, keypoints3, descriptors2, descriptors3 = calculate_features(image2_cv, image3_cv, 1000)
