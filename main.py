@@ -30,6 +30,7 @@ def get_time_difference(image0, image1):
     return time_difference.seconds
 
 diff0 = get_time_difference('image0.jpg','image1.jpg')
+diff1 = get_time_difference('image2.jpg','image3.jpg')
 
 def convert_to_cv(image0, image1):
     image0_cv = cv.imread(image0, 0)
@@ -83,12 +84,27 @@ def calculate_speed_in_kmps(feature_distance, GSD, time_difference):
     return speed
 
 image0_cv, image1_cv = convert_to_cv('image0.jpg','image1.jpg')
+image2_cv,image3_cv = convert_to_cv('image2.jpg','image3.jpg')
+
 keypoints0, keypoints1, descriptors0, descriptors1 = calculate_features(image0_cv, image1_cv, 1000)
-matches = calculate_matches(descriptors0, descriptors1)
-#display_matches(image0_cv, keypoints0, image1_cv, keypoints1, matches)
-coordinates0, coordinates1 = find_matching_coordinates(keypoints0, keypoints1, matches)
-average_feature_distance = calculate_mean_distance(coordinates0, coordinates1)
-speed = calculate_speed_in_kmps(average_feature_distance, 12648, diff0)
+keypoints2, keypoints3, descriptors2, descriptors3 = calculate_features(image2_cv, image3_cv, 1000)
+
+matches0 = calculate_matches(descriptors0, descriptors1)
+matches1 = calculate_matches(descriptors2, descriptors3)
+
+#display_matches(image0_cv, keypoints0, image1_cv, keypoints1, matches0)
+#display_matches(image2_cv, keypoints2, image3_cv, keypoints3, matches1)
+
+coordinates0, coordinates1 = find_matching_coordinates(keypoints0, keypoints1, matches0)
+coordinates2, coordinates3 = find_matching_coordinates(keypoints2, keypoints3, matches1)
+
+average_feature_distance0 = calculate_mean_distance(coordinates0, coordinates1)
+average_feature_distance1 = calculate_mean_distance(coordinates2, coordinates3)
+
+speed0 = calculate_speed_in_kmps(average_feature_distance0, 12648, diff0)
+speed1 = calculate_speed_in_kmps(average_feature_distance1, 12648, diff1)
+
+speed = (speed0+speed1)/2
 
 result_txt = open('result.txt', 'w')
 if(speed[1]=="."):
