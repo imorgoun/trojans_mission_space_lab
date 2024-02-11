@@ -104,7 +104,7 @@ average_feature_distance1 = calculate_mean_distance(coordinates2, coordinates3)
 speed0 = calculate_speed_in_kmps(average_feature_distance0, 12648, diff0)
 speed1 = calculate_speed_in_kmps(average_feature_distance1, 12648, diff1)
 
-speed = (speed0+speed1)/2
+speed = str((speed0+speed1)/2)
 
 result_txt = open('result.txt', 'w')
 if(speed[1]=="."):
