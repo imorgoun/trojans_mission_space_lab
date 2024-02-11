@@ -86,5 +86,8 @@ coordinates0, coordinates1 = find_matching_coordinates(keypoints0, keypoints1, m
 average_feature_distance = calculate_mean_distance(coordinates0, coordinates1)
 speed = calculate_speed_in_kmps(average_feature_distance, 12648, diff0)
 result_txt = open('result.txt', 'w')
-result_txt.write(speed[:6])
+if(speed[1]=="."):
+    result_txt.write(speed[:6])
+else:
+    result_txt.write(speed[:7])
 result_txt.close()
