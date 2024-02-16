@@ -23,7 +23,7 @@ cam.capture("image4.jpg")
 sleep(7)
 cam.capture("image5.jpg")
 
-# funtion that returns the exact time a picture was taken
+# function that returns the exact time a picture was taken
 def get_time(image):
     with open(image, 'rb') as image_file:
         img = Image(image_file)
@@ -44,7 +44,7 @@ def convert_to_cv(image0, image1):
     image1_cv = cv.imread(image1, 0)
     return image0_cv, image1_cv
 
-# function that returns 2 lists of keypoints and 2 list of descriptors for 2 pictures
+# function that returns 2 lists of keypoints and 2 list of descriptors from 2 pictures
 def calculate_features(image0_cv, image1_cv, feature_number):
     orb = cv.ORB_create(nfeatures = feature_number)
     keypoints0, descriptors0 = orb.detectAndCompute(image0_cv, None)
@@ -71,7 +71,7 @@ def find_matching_coordinates(keypoints0, keypoints1, matches):
         coordinates1.append((x2,y2))
     return coordinates0, coordinates1 
 
-# function that uses the 2 list of coordinates and the Pythagorean theorem to calculate the mean coordinates
+# function that uses the 2 list of coordinates to calculate the mean coordinates
 def calculate_mean_distance(coordinates0, coordinates1):
     all_distances = 0
     merged_coordinates = list(zip(coordinates0, coordinates1))
@@ -88,7 +88,7 @@ def calculate_speed_in_kmps(feature_distance, GSD, time_difference):
     speed = distance / time_difference
     return speed 
 
-# finds the time diffrences between the pictures in all  the pairs
+# finds the time diffrences between the pictures in all picture pairs
 diff0 = get_time_difference('image0.jpg','image1.jpg')
 diff1 = get_time_difference('image2.jpg','image3.jpg')
 diff2 = get_time_difference('image4.jpg','image5.jpg')
@@ -108,12 +108,12 @@ matches0 = calculate_matches(descriptors0, descriptors1)
 matches1 = calculate_matches(descriptors2, descriptors3)
 matches2 = calculate_matches(descriptors4, descriptors5)
 
-# finds the coordinates matching the sets of previously calculated keypoints and matches(between descriptors)
+# finds the coordinates that match the previously calculated sets of keypoints and matches(between descriptors)
 coordinates0, coordinates1 = find_matching_coordinates(keypoints0, keypoints1, matches0)
 coordinates2, coordinates3 = find_matching_coordinates(keypoints2, keypoints3, matches1)
 coordinates4, coordinates5 = find_matching_coordinates(keypoints4, keypoints5, matches2)
 
-# uses the calculate_mean_distance function to find the average feature distance variable from the sets of coordinates
+# uses the calculate_mean_distance function to find the average feature distance from the sets of coordinates
 average_feature_distance0 = calculate_mean_distance(coordinates0, coordinates1)
 average_feature_distance1 = calculate_mean_distance(coordinates2, coordinates3)
 average_feature_distance2 = calculate_mean_distance(coordinates4, coordinates5)
@@ -123,11 +123,12 @@ speed0 = calculate_speed_in_kmps(average_feature_distance0, 12648, diff0)
 speed1 = calculate_speed_in_kmps(average_feature_distance1, 12648, diff1)
 speed2 = calculate_speed_in_kmps(average_feature_distance2, 12648, diff2) 
 
-# calculates mean distance of all speeds and converts it to string format
+# calculates mean distance of all speeds and converts it to a string format for writing in .txt file
 speed = str((speed0+speed1+speed2)/3)
 
+# opens/creates the result.txt file
 result_txt = open('result.txt', 'w')
-if(speed[1]=="."): # checks whether there are 1 or 2 characters before the dot
+if(speed[1]=="."): # checks whether there are 1 or 2 characters before the dot in the speed variable
     result_txt.write(speed[:6]) # write the first six characters if there is only one before the dot
 else:
     result_txt.write(speed[:7]) # write the first seven characters if there are 2 before the dot
